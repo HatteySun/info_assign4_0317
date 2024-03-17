@@ -46,6 +46,7 @@ function Points(props) {
     //     setHoveredStation(station);
     // };
     const handleMouseEnter = (d, event) => {
+        if (!d) return;  // Ensure 'd' is defined
         setHoveredStation(d.station);
         setTooltipContent(d);
         setTooltipX(event.pageX);
@@ -80,13 +81,22 @@ function Points(props) {
             )}
 
             {/* Points */}
-            {data.map((d, i) => (
+            {/* {data.map((d, i) => (
                 <circle key={i}
                         cx={xScale(d.start)}
                         cy={yScale(d.end)}
                         r={getRadius(d.station)}
                         fill={getColor(d.station)}
                         // onMouseEnter={() => handleMouseEnter(d.station)}
+                        onMouseEnter={(event) => handleMouseEnter(d, event)}
+                        onMouseOut={handleMouseOut} />
+            ))} */}
+            {Array.isArray(data) && data.map((d, i) => (
+                <circle key={i}
+                        cx={xScale(d.start)}
+                        cy={yScale(d.end)}
+                        r={getRadius(d.station)}
+                        fill={getColor(d.station)}
                         onMouseEnter={(event) => handleMouseEnter(d, event)}
                         onMouseOut={handleMouseOut} />
             ))}

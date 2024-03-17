@@ -49,9 +49,13 @@ const Charts = () => {
     const innerHeightBar = HEIGHT - margin.top - margin.bottom-120;
     const innerWidth = WIDTH - margin.left - margin.right;
     const MONTH = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const data = dataAll.filter( d => { 
-        return d.month === MONTH[month] 
-    });
+    // const data = dataAll.filter( d => { 
+    //     return d.month === MONTH[month] 
+    // });
+    const data = dataAll.filter(d => d.month === MONTH[parseInt(month)]);
+    if (data.length === 0) {
+        return <pre>No data for selected month.</pre>;
+    }
     // console.log(data)
    
     const xScaleScatter = d3.scaleLinear()
